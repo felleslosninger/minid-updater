@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>maven-mother</artifactId>
 		<groupId>no.idporten</groupId>
-		<version>3.0-SNAPSHOT</version>
+		<version>x.y.z-SNAPSHOT</version>
 		<relativePath>../maven-mother</relativePath>
 	</parent>
 
@@ -28,8 +28,7 @@
         </dependency>
 		<dependency>
             <groupId>no.difi.kontaktinfo</groupId>
-            <artifactId>kontaktinfo-lib-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>kontaktinfo-lib-common</artifactId>            
         </dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
