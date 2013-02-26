@@ -48,10 +48,39 @@ cmnPrintln "<-- '${TOMCAT_SHARED_CLASSPATH}/config' created"
 }
 
 #----------------------------------------------------------
+setCatalinaPid() {
+#----------------------------------------------------------
+export CATALINA_PID=${TOMCAT_HOME}/bin/tomcat_pid
+}
+
+#----------------------------------------------------------
 commonStopTomcat() {
 #----------------------------------------------------------
 cmnPrintln "--> Stopping Tomcat Server"
-${TOMCAT_HOME}/bin/shutdown.sh
+setCatalinaPid
+
+STATUS=0
+if [ -f $CATALINA_PID ];
+then
+   cmnPrintln "CATALINA_PID set to $CATALINA_PID"
+   ${TOMCAT_HOME}/bin/shutdown.sh 10 -force
+   STATUS=$?
+   if [ -f $CATALINA_PID ]; then
+       # pid file where not deleted by tomcat. Most likely because of errror. Remove it to prevent wrong pid from failing restart next time.
+       rm $CATALINA_PID
+   fi   
+else
+   cmnErrln "CATALINA_PID file doesn't exist. Will wait 10 seconds after shutdown."
+   export CATALINA_PID=
+   ${TOMCAT_HOME}/bin/shutdown.sh 10
+   STATUS=$?
+   sleep 10
+fi
+
+if [ $STATUS != 0 ]; then
+	cmnErrln "Tomcat shutdown failed!"
+fi
+
 cmnPrintln "<-- Tomcat Server stopped"
 }
 
@@ -59,7 +88,8 @@ cmnPrintln "<-- Tomcat Server stopped"
 commonStartTomcat() {
 #----------------------------------------------------------
 cmnPrintln "--> Starting Tomcat Server"
-${TOMCAT_HOME}/bin/startup.sh
+setCatalinaPid
+${TOMCAT_HOME}/bin/startup.sh 20 -force
 cmnPrintln "<-- Tomcat Server started"
 }
 
