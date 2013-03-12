@@ -89,12 +89,12 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		<finalName>${project.artifactId}-${project.version}-${svn.revision}</finalName>
+		<finalName>${project.artifactId}-${project.version}-${git.revision}</finalName>
 		<plugins>
 			<plugin>
-				<groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
-				<artifactId>svn-revision-number-maven-plugin</artifactId>
-			</plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
