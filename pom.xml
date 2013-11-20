@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>maven-mother</artifactId>
 		<groupId>no.idporten</groupId>
-		<version>3.3-RC6-SNAPSHOT</version>
+		<version>3.3.1-RC1</version>
 		<relativePath>../maven-mother</relativePath>
 	</parent>
 
