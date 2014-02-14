@@ -1,4 +1,4 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script that will generate Minid updater LOG4J.XML
 # Using template defined in ./config/
@@ -13,8 +13,8 @@ BASEDIR=`dirname $0`
 LOG4J_XML_TEMPLATE=${BASEDIR}/config/log4j.xml.orig
 LOG4J_XML_FILE=${TOMCAT_SHARED_CLASSPATH}/log4j.xml
 
-SED=/usr/bin/sed
-MKDIR=/usr/bin/mkdir
+SED=/bin/sed
+MKDIR=/bin/mkdir
 
 #----------------------------------------------------------
 modifylog4jXml() {

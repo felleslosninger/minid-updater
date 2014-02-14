@@ -1,4 +1,4 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script that will download tomcat, unzip it and modify configuration.
 # Set configuration data in configuration.properties
@@ -10,11 +10,11 @@
 BASEDIR=`dirname $0`
 
 # Load common functions and configuration properties
-. ${BASEDIR}/commonFunctions.sh
+. ${BASEDIR}/../commonFunctions.sh
 
-WGET=/usr/sfw/bin/wget
-SED=/usr/bin/sed
-TAR=/usr/sfw/bin/gtar
+WGET=/bin/wget
+SED=/bin/sed
+TAR=/bin/gtar
 
 TOMCAT_NAME=apache-tomcat-${TOMCAT_VERSION}
 TOMCAT_ZIPPED_NAME=${TOMCAT_NAME}.tar.gz

@@ -1,4 +1,4 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # This script will redeploy minid updater WAR in tomcat.
 # Depends on configuration properties: 
@@ -8,9 +8,9 @@
 
 BASEDIR=`dirname $0`
 
-. ${BASEDIR}/configuration.properties
+. ${BASEDIR}/../configuration.properties
 # Load common functions
-. ${BASEDIR}/commonFunctions.sh
+. ${BASEDIR}/../commonFunctions.sh
 
 TOMCAT_WAR_PATH=${TOMCAT_HOME}/webapps/${MINID_UPDATER_CONTEXT_ROOT}
 TOMCAT_WAR_FILE=${TOMCAT_WAR_PATH}.war

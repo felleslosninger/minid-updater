@@ -1,10 +1,11 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script that will generate MinID updater properties file(s)
 # Using templates defined in ./config/
 # Concrete values are read from file ./configuration.properties
 
 BASEDIR=`dirname $0`
+
 
 . ${BASEDIR}/configuration.properties
 # Load common functions
@@ -19,9 +20,9 @@ MINID_UPDATER_PROPERTIES_FILE=${TOMCAT_SHARED_CLASSPATH}/minidUpdater.properties
 MINID_PROPERTIES_FILE=${TOMCAT_SHARED_CLASSPATH}/minid.properties
 APPLICATION_CONTEXT_FILE=${TOMCAT_SHARED_CLASSPATH}/applicationContext.xml
 
-SED=/usr/bin/sed
-MKDIR=/usr/bin/mkdir
-AWK=/usr/bin/nawk
+SED=/bin/sed
+MKDIR=/bin/mkdir
+AWK=/bin/awk
 
 #----------------------------------------------------------
 modifyMinidUpdaterProperties() {

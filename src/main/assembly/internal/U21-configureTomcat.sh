@@ -1,4 +1,4 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script that will create setenv.sh in ${TOMCAT_HOME}/bin.
 # JAVA_OPTS and JAVA_HOME are set here.
@@ -12,11 +12,11 @@
 BASEDIR=`dirname $0`
 
 # Load common functions and configuration properties
-. ${BASEDIR}/commonFunctions.sh
+. ${BASEDIR}/../commonFunctions.sh
 
-WGET=/usr/sfw/bin/wget
-SED=/usr/bin/sed
-TAR=/usr/sfw/bin/gtar
+WGET=/bin/wget
+SED=/bin/sed
+TAR=/bin/gtar
 
 SETENV_TEMPLATE=${BASEDIR}/config/setenv.sh.orig
 SETENV_FILE=${TOMCAT_HOME}/bin/setenv.sh
