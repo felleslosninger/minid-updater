@@ -64,7 +64,6 @@ public class UpdaterServiceImpl implements UpdaterService {
             LOG.warn("Minid user with ssn:'" + updatedUserData.getSsn() + "' was a dummy user. Not updated!");
             return;
         }
-        updatedUserData.getStatusCode().equals(UpdateStatusCode.DELETED);
         updateContactInfo(updatedUserData, contact);
     }
     
