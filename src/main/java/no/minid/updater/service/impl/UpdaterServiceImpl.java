@@ -1,7 +1,6 @@
 package no.minid.updater.service.impl;
 
 import no.difi.kontaktinfo.dto.UserUpdateMessage;
-import no.difi.kontaktinfo.dto.UserUpdateMessage.UpdateStatusCode;
 import no.idporten.domain.user.EmailAddress;
 import no.idporten.domain.user.MinidUser;
 import no.idporten.domain.user.MobilePhoneNumber;
@@ -48,7 +47,7 @@ public class UpdaterServiceImpl implements UpdaterService {
     public void processDeletedUser(UserUpdateMessage updatedUserData) {
     	PersonNumber personNumber = new PersonNumber(updatedUserData.getSsn());
     	try {
-			minIDService.setUserStateClosed(personNumber, "closed by minidupdater");
+			minIDService.setUserStateClosedAndDeleteUserData(personNumber, "minidupdater");
 		} catch (MinidUserNotFoundException e) {
 			// That's ok
 		}
