@@ -2,6 +2,10 @@
 - MinID Updater ChangeLog -
 ---------------------------
 
+Versjon 14-05:
+* PBLEID-4997 - sletting av brukere
+* PBLEID-4998 - sletting av brukere / dødevask
+
 Versjon 3.0 - Revision 7511 - 01.11.2012 (Ingen endringer)
 Versjon 3.0 - Revision 7386 - 25.10.2012
 
