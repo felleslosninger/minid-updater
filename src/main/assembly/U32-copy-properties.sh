@@ -4,10 +4,12 @@
 # Using templates defined in ./config/
 # Concrete values are read from file ./configuration.properties
 
-BASEDIR=`dirname $0`
+# Base directory for installation set
+BASEDIR=$(dirname $(readlink -f $0))
 
+# Load common functions and configuration properties
+. $BASEDIR/configuration.properties
 
-. ${BASEDIR}/configuration.properties
 # Load common functions
 . ${BASEDIR}/commonFunctions.sh
 
@@ -20,9 +22,6 @@ MINID_UPDATER_PROPERTIES_FILE=${TOMCAT_SHARED_CLASSPATH}/minidUpdater.properties
 MINID_PROPERTIES_FILE=${TOMCAT_SHARED_CLASSPATH}/minid.properties
 APPLICATION_CONTEXT_FILE=${TOMCAT_SHARED_CLASSPATH}/applicationContext.xml
 
-SED=/bin/sed
-MKDIR=/bin/mkdir
-AWK=/bin/awk
 
 #----------------------------------------------------------
 modifyMinidUpdaterProperties() {

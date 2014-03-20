@@ -6,11 +6,14 @@
 # - MINID_UPDATER_WAR
 # - MINID_UPDATER_CONTEXT_ROOT
 
-BASEDIR=`dirname $0`
+# Base directory for installation set
+BASEDIR=$(dirname $(dirname $(readlink -f $0)))
 
-. ${BASEDIR}/../configuration.properties
+# Load common functions and configuration properties
+. $BASEDIR/configuration.properties
+
 # Load common functions
-. ${BASEDIR}/../commonFunctions.sh
+. ${BASEDIR}/commonFunctions.sh
 
 TOMCAT_WAR_PATH=${TOMCAT_HOME}/webapps/${MINID_UPDATER_CONTEXT_ROOT}
 TOMCAT_WAR_FILE=${TOMCAT_WAR_PATH}.war

@@ -48,3 +48,12 @@ MINID_UPDATER_AUDITLOG_FILE=minid-updater.log
 #==================================================================================================================
 MINID_UPDATER_EVENTLOG_JMS_URL=tcp://idporten-utv3.difi.local:61616
 MINID_UPDATER_EVENTLOG_JMS_QUEUENAME=logqueue
+
+#==================================================================================================================
+# Command line tools
+#==================================================================================================================
+SED=/bin/sed
+MKDIR=/bin/mkdir
+AWK=/bin/awk
+WGET=/bin/wget
+TAR=/bin/tar

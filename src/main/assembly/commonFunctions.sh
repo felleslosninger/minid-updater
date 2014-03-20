@@ -2,11 +2,9 @@
 #
 # Script containing common functions used in other scripts.
 
-BASEDIR=`dirname $0`
 HOSTNAME=`hostname`
 
 . ${BASEDIR}/internal/internal.properties
-. ${BASEDIR}/configuration.properties
 
 #----------------------------------------------------------
 cmnPrintln() {

@@ -3,11 +3,14 @@
 # This script will restart Tomcat
 # Depends on configuration property: TOMCAT_HOME
 
-BASEDIR=`dirname $0`
+# Base directory for installation set
+BASEDIR=$(dirname $(dirname $(readlink -f $0)))
 
-. ${BASEDIR}/../configuration.properties
+# Load common functions and configuration properties
+. $BASEDIR/configuration.properties
+
 # Load common functions
-. ${BASEDIR}/../commonFunctions.sh
+. ${BASEDIR}/commonFunctions.sh
 
 #----------------------------------------------------------
 # MAIN
