@@ -2,7 +2,10 @@
 - MinID Updater ChangeLog -
 ---------------------------
 
-Versjon 14-05:
+Versjon 14-05-RC1 - 20.03.2014:
+* PBLEID-5716 - fix feil encoding i konfigurasjonsfiler
+
+Versjon 14-05-RC1:
 * PBLEID-4997 - sletting av brukere
 * PBLEID-4998 - sletting av brukere / dødevask
 
