@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>maven-mother</artifactId>
 		<groupId>no.idporten</groupId>
-		<version>14-05-RC5</version>
+		<version>14-05-RC6-SNAPSHOT</version>
 		<relativePath>../maven-mother</relativePath>
 	</parent>
 
@@ -14,7 +14,7 @@
 	<artifactId>minid-web-updater</artifactId>
 	<packaging>war</packaging>
 	<name>MinID Updater</name>
-	<description>Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo backend on JMS.</description>
+	<description>no.difi.kontaktregister.ldap2mysql.Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo backend on JMS.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
