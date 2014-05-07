@@ -34,7 +34,27 @@ public class UpdaterServiceImpl implements UpdaterService {
      */
     @Override
     public void processUpdateMessage(UserUpdateMessage updatedUserData) {
-        LOG.debug("processUpdateMessage(updatedUserData:" + updatedUserData + ")");
+    	switch (updatedUserData.getStatusCode()) {
+		case DELETED:
+			processDeletedUser(updatedUserData);
+			break;
+    	default:
+			processUpdatedUser(updatedUserData);
+			break;
+    	}
+    }
+    
+    public void processDeletedUser(UserUpdateMessage updatedUserData) {
+    	PersonNumber personNumber = new PersonNumber(updatedUserData.getSsn());
+    	try {
+			minIDService.setUserStateClosedAndDeleteUserData(personNumber, "minidupdater");
+		} catch (MinidUserNotFoundException e) {
+			// That's ok
+		}
+    }
+    
+    public void processUpdatedUser(UserUpdateMessage updatedUserData) {
+    	LOG.debug("processUpdateMessage(updatedUserData:" + updatedUserData + ")");
         MinidUser contact = readContactInfo(updatedUserData.getSsn());
         if(contact == null) {
             LOG.error("Minid user with ssn:'" + updatedUserData.getSsn() + "' not found in MinID.");
@@ -43,9 +63,9 @@ public class UpdaterServiceImpl implements UpdaterService {
             LOG.warn("Minid user with ssn:'" + updatedUserData.getSsn() + "' was a dummy user. Not updated!");
             return;
         }
-        
         updateContactInfo(updatedUserData, contact);
     }
+    
     
     /**
      * Fetches the user identity object from MinID DAO.

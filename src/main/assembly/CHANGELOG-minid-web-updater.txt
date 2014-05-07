@@ -1,0 +1,30 @@
+---------------------------
+- MinID Updater ChangeLog -
+---------------------------
+
+Versjon 14-05-RC1 - 20.03.2014:
+* PBLEID-5716 - fix feil encoding i konfigurasjonsfiler
+
+Versjon 14-05-RC1:
+* PBLEID-4997 - sletting av brukere
+* PBLEID-4998 - sletting av brukere / dødevask
+
+Versjon 3.0 - Revision 7511 - 01.11.2012 (Ingen endringer)
+Versjon 3.0 - Revision 7386 - 25.10.2012
+
+	PBLEID-2705:    Oppdatere MinIdService til å fjerne OTC hvis mobilnummer er slettet
+	
+	
+Versjon 3.0 - Revision 7290 - 18.10.2012
+
+    PBLEID-2568:    MinId Updater feiler hvis LDAP bruker ikke har minid-profile-updated satt
+	
+
+Versjon 3.0 - Revision 7044 - 11.10.2012
+
+    PBLEID-1964:    minid-web-updater: minid-lib-ldap frigir ikke ressurser (Tomcat henger) ved stenging av webapp/Tomcat
+    PBLEID-1892:    PBLEID-1723 Ta ibruk MinIDService i minid-lib-ldap
+    PBLEID-1884:    Fikse SVN revision plugin under idporten
+    PBLEID-1835:    PBLEID-1834 Definere og implementere MinID-servicelag
+    PBLEID-1776:    PBLEID-1723 Utvikle egen LDAP DAO
+    PBLEID-1745:    PBLEID-1723 Lage en egen JMS klient (se log-writer)
