@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>maven-mother</artifactId>
 		<groupId>no.idporten</groupId>
-		<version>14-11-RC1-SNAPSHOT</version>
+		<version>14-11-SNAPSHOT</version>
 		<relativePath>../maven-mother</relativePath>
 	</parent>
 
@@ -14,7 +14,7 @@
 	<artifactId>minid-web-updater</artifactId>
 	<packaging>war</packaging>
 	<name>MinID Updater</name>
-	<description>no.difi.kontaktregister.ldap2mysql.Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo backend on JMS.</description>
+	<description>Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo backend on JMS.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,8 +52,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<version>5.5.1</version>
+			<artifactId>activemq-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -62,12 +61,15 @@
 		</dependency>
 		<dependency>
     	<groupId>org.slf4j</groupId>
-    		<artifactId>slf4j-simple</artifactId>
-    		<version>1.5.11</version>
+    		<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>apache-log4j-extras</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

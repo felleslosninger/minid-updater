@@ -1,11 +1,10 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script containing common functions used in other scripts.
 
-BASEDIR=`dirname $0`
 HOSTNAME=`hostname`
 
-. ${BASEDIR}/configuration.properties
+. ${BASEDIR}/internal/internal.properties
 
 #----------------------------------------------------------
 cmnPrintln() {
