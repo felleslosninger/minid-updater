@@ -1,0 +1,6 @@
+
+TOMCAT_VERSION=7.0.28
+TOMCAT_WGET_URL_DIRECTORY=http://apache.komsys.org/tomcat/tomcat-7/v7.0.28/bin
+TOMCAT_JAVA_OPTS="-Xms1024m -Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=256m"
+TOMCAT_JAVA_HOME=/usr/jdk/jdk1.6.0_17
+TOMCAT_HTTP_PORT=8180

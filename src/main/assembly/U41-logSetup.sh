@@ -1,20 +1,20 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # Script that will generate Minid updater LOG4J.XML
 # Using template defined in ./config/
 # Concrete values are read from file ./configuration.properties
 
-BASEDIR=`dirname $0`
+# Base directory for installation set
+BASEDIR=$(dirname $(readlink -f $0))
 
-. ${BASEDIR}/configuration.properties
+# Load common functions and configuration properties
+. $BASEDIR/configuration.properties
+
 # Load common functions
 . ${BASEDIR}/commonFunctions.sh
 
 LOG4J_XML_TEMPLATE=${BASEDIR}/config/log4j.xml.orig
 LOG4J_XML_FILE=${TOMCAT_SHARED_CLASSPATH}/log4j.xml
-
-SED=/usr/bin/sed
-MKDIR=/usr/bin/mkdir
 
 #----------------------------------------------------------
 modifylog4jXml() {

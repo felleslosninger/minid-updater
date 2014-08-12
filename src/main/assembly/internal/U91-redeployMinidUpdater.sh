@@ -1,4 +1,4 @@
-#!/usr/bin/ksh
+#!/bin/sh
 #
 # This script will redeploy minid updater WAR in tomcat.
 # Depends on configuration properties: 
@@ -6,9 +6,12 @@
 # - MINID_UPDATER_WAR
 # - MINID_UPDATER_CONTEXT_ROOT
 
-BASEDIR=`dirname $0`
+# Base directory for installation set
+BASEDIR=$(dirname $(dirname $(readlink -f $0)))
 
-. ${BASEDIR}/configuration.properties
+# Load common functions and configuration properties
+. $BASEDIR/configuration.properties
+
 # Load common functions
 . ${BASEDIR}/commonFunctions.sh
 
