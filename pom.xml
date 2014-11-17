@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>maven-mother</artifactId>
+		<artifactId>idporten</artifactId>
 		<groupId>no.idporten</groupId>
 		<version>15-02-SNAPSHOT</version>
-		<relativePath>../maven-mother</relativePath>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<groupId>no.minid</groupId>
