@@ -10,7 +10,6 @@
 		<relativePath>../</relativePath>
 	</parent>
 
-	<groupId>no.minid</groupId>
 	<artifactId>minid-web-updater</artifactId>
 	<packaging>war</packaging>
 	<name>MinID Updater</name>
@@ -22,11 +21,11 @@
 
 	<dependencies>
 		<dependency>
-            <groupId>no.minid</groupId>
+            <groupId>no.difi.common</groupId>
             <artifactId>minid-lib-ldap</artifactId>
         </dependency>
 		<dependency>
-            <groupId>no.difi.kontaktinfo</groupId>
+            <groupId>no.difi.common</groupId>
             <artifactId>kontaktinfo-lib-common</artifactId>            
         </dependency>
 		<dependency>
