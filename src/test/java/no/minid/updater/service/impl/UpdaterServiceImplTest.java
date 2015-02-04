@@ -110,23 +110,5 @@ public class UpdaterServiceImplTest {
         final UserUpdateMessage msg = new UserUpdateMessage("02014047797", "email@email.no", "90090900", DateUtils.addHours(contact.getProfileUpdatedDate(), 1), UpdateStatusCode.MODIFIED);
         service.updateContactInfo(msg, contact);        
     }    
-    
-    @Test
-    public void incomingDeletedUserMessageShouldCauseMinidUserToBeClosed() throws MinidUserNotFoundException {
-    	MinidUser contact = new MinidUser();
-    	contact.setProfileUpdatedDate(new Date());
-    	contact.setPersonNumber(new PersonNumber("02014047797"));
-        UserUpdateMessage msg = new UserUpdateMessage(contact.getPersonNumber().getSsn(), "email@email.no", "90090900", DateUtils.addHours(contact.getProfileUpdatedDate(), 1), UpdateStatusCode.DELETED);
-        service.processUpdateMessage(msg);
-        verify(minIDService).setUserStateClosedAndDeleteUserData(any(PersonNumber.class), any(String.class));
-    }
-    
-    @Test
-    public void incomingDeletedUserMessageShouldSimnplyBeDroppedIfMinidUserDoesntExist() throws MinidUserNotFoundException {
-    	MinidUser contact = new MinidUser();
-    	contact.setProfileUpdatedDate(new Date());
-    	contact.setPersonNumber(new PersonNumber("02014047797"));
-        UserUpdateMessage msg = new UserUpdateMessage("05015572495", "email@email.no", "90090900", DateUtils.addHours(contact.getProfileUpdatedDate(), 1), UpdateStatusCode.DELETED);
-        service.processUpdateMessage(msg);
-    }
+
 }

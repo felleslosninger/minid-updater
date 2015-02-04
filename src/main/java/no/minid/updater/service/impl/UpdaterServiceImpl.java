@@ -34,26 +34,6 @@ public class UpdaterServiceImpl implements UpdaterService {
      */
     @Override
     public void processUpdateMessage(UserUpdateMessage updatedUserData) {
-    	switch (updatedUserData.getStatusCode()) {
-		case DELETED:
-			processDeletedUser(updatedUserData);
-			break;
-    	default:
-			processUpdatedUser(updatedUserData);
-			break;
-    	}
-    }
-    
-    public void processDeletedUser(UserUpdateMessage updatedUserData) {
-    	PersonNumber personNumber = new PersonNumber(updatedUserData.getSsn());
-    	try {
-			minIDService.setUserStateClosedAndDeleteUserData(personNumber, "minidupdater");
-		} catch (MinidUserNotFoundException e) {
-			// That's ok
-		}
-    }
-    
-    public void processUpdatedUser(UserUpdateMessage updatedUserData) {
     	LOG.debug("processUpdateMessage(updatedUserData:" + updatedUserData + ")");
         MinidUser contact = readContactInfo(updatedUserData.getSsn());
         if(contact == null) {
@@ -65,7 +45,7 @@ public class UpdaterServiceImpl implements UpdaterService {
         }
         updateContactInfo(updatedUserData, contact);
     }
-    
+
     
     /**
      * Fetches the user identity object from MinID DAO.
