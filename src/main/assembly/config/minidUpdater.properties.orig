@@ -1,6 +1,0 @@
-### Configuration for MinID Updater application. ###
-
-# Active MQ/JMS definitions for receiving update messages
-jms.queueName=MINID_UPDATER_JMS_QUEUE_NAME
-jms.concurrentConsumers=MINID_UPDATER_JMS_CONCURRENT_CONSUMERS
-jms.maxConcurrentConsumers=MINID_UPDATER_JMS_MAX_CONCURRENT_CONSUMERS
