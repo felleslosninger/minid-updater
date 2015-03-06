@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>idporten</artifactId>
 		<groupId>no.idporten</groupId>
-		<version>15-05-SNAPSHOT</version>
+        <version>15-05-OPENAM11</version><!-- Midlertidig satt eigen versjon for idporten-* prosjekta, må endres tilbake til 15-05 ved merge fra IDPORTEN_15_05_OPENAM11 til IDPORTEN_15_05 -->
 		<relativePath>../</relativePath>
 	</parent>
 
