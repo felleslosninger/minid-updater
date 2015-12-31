@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{ISO8601} %level [%thread] %logger{30} %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <root>
+        <appender-ref ref="console"/>
+        <level value="warn"/>
+    </root>
+
+</configuration>

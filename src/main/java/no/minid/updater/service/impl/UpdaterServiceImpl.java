@@ -9,9 +9,8 @@ import no.minid.exception.MinidUserNotFoundException;
 import no.minid.service.MinIDService;
 import no.minid.updater.exception.LdapSystemException;
 import no.minid.updater.service.UpdaterService;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UpdaterServiceImpl implements UpdaterService {
-    private static final Log LOG = LogFactory.getLog(UpdaterServiceImpl.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(UpdaterServiceImpl.class.getName());
 
     @Autowired
     MinIDService minIDService;
@@ -34,7 +33,7 @@ public class UpdaterServiceImpl implements UpdaterService {
      */
     @Override
     public void processUpdateMessage(UserUpdateMessage updatedUserData) {
-    	LOG.debug("processUpdateMessage(updatedUserData:" + updatedUserData + ")");
+        LOG.debug("processUpdateMessage(updatedUserData:" + updatedUserData + ")");
         MinidUser contact = readContactInfo(updatedUserData.getSsn());
         if(contact == null) {
             LOG.error("Minid user with ssn:'" + updatedUserData.getSsn() + "' not found in MinID.");
