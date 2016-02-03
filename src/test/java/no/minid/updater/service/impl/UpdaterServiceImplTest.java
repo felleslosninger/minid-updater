@@ -1,25 +1,23 @@
 package no.minid.updater.service.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.util.Date;
-
 import no.difi.kontaktinfo.dto.UserUpdateMessage;
 import no.difi.kontaktinfo.dto.UserUpdateMessage.UpdateStatusCode;
 import no.idporten.domain.user.MinidUser;
 import no.idporten.domain.user.PersonNumber;
 import no.minid.exception.MinidUserNotFoundException;
-import no.minid.ldap.dao.MinidDao;
 import no.minid.service.MinIDService;
 import no.minid.updater.exception.LdapSystemException;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class UpdaterServiceImplTest {
     
@@ -36,7 +34,7 @@ public class UpdaterServiceImplTest {
     
     @Test
     public void testProcessUpdateMessageWithNewDate() throws MinidUserNotFoundException {
-    	PersonNumber personNumber = new PersonNumber("02014047797");
+        PersonNumber personNumber = new PersonNumber("02014047797");
         MinidUser contact = new MinidUser();
         contact.setProfileUpdatedDate(new Date());
         contact.setPersonNumber(personNumber);
@@ -92,7 +90,7 @@ public class UpdaterServiceImplTest {
     
     @Test
     public void testUpdateContactInfoWithEqualModifiedDate() throws MinidUserNotFoundException {
-    	MinidUser contact = new MinidUser();
+        MinidUser contact = new MinidUser();
         contact.setProfileUpdatedDate(new Date());
         contact.setPersonNumber(new PersonNumber("02014047797"));
         final UserUpdateMessage msg = new UserUpdateMessage("02014047797", "email@email.no", "90090900", new Date(contact.getProfileUpdatedDate().getTime()), UpdateStatusCode.MODIFIED);
@@ -102,7 +100,7 @@ public class UpdaterServiceImplTest {
     
     @Test(expected=LdapSystemException.class)
     public void testUpdateContactInfoWithLdapException() throws MinidUserNotFoundException {
-    	MinidUser contact = new MinidUser();
+        MinidUser contact = new MinidUser();
         contact.setProfileUpdatedDate(new Date());
         
         doThrow(new RuntimeException("Junit test feil")).when(minIDService).updateContactInformation(contact);

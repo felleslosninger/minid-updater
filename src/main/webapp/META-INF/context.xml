@@ -3,9 +3,9 @@
 <Context>
 
     <Loader
-     	className="org.apache.catalina.loader.VirtualWebappLoader"
-    	virtualClasspath="/etc/opt/minid-updater"
-    	searchVirtualFirst="false"
+            className="org.apache.catalina.loader.VirtualWebappLoader"
+            virtualClasspath="/etc/opt/minid-updater"
+            searchVirtualFirst="false"
     />
 
 </Context>
