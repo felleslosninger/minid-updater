@@ -5,7 +5,7 @@
     <parent>
         <artifactId>idporten</artifactId>
         <groupId>no.idporten</groupId>
-        <version>16-07-SNAPSHOT</version>
+        <version>00-02-00-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
