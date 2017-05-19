@@ -1,0 +1,1 @@
+feature/PBLEID-14067: Jenkinsfile for kontinuerlig bygg av brancher og master
