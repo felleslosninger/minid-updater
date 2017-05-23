@@ -1,2 +1,3 @@
+feature/PBLEID-14084: Redusere spam fra Maven i loggen på Jenkins
 feature/PBLEID-14068: Utrulling av minid-updater
 feature/PBLEID-14067: Jenkinsfile for kontinuerlig bygg av brancher og master

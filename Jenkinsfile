@@ -26,7 +26,7 @@ pipeline {
                     if (isDeployBuild()) {
                         currentBuild.description = "Release: ${env.version}"
                         sh "mvn versions:set -DnewVersion=${env.version}"
-                        sh 'mvn clean deploy'
+                        sh 'mvn clean deploy -B'
                         step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                         step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar, **/target/*.war, **/target/*.zip', fingerprint: true])
                     }
