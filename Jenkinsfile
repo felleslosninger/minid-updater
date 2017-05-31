@@ -5,9 +5,13 @@ import java.time.format.DateTimeFormatter
 import static java.time.ZonedDateTime.now
 
 pipeline {
-    agent any
+    agent none
+    options {
+        timeout(time: 5, unit: 'DAYS')
+    }
     stages {
         stage('Branch build') {
+            agent any
             steps {
                 script {
                     env.version = DateTimeFormatter.ofPattern('yyyy-MM-dd-HHmm').format(now(ZoneId.of('UTC')))
@@ -21,49 +25,49 @@ pipeline {
             }
         }
         stage('Release build') {
+            agent any
+            when { branch 'master' }
             steps {
                 script {
-                    if (isDeployBuild()) {
-                        currentBuild.description = "Release: ${env.version}"
-                        sh "mvn versions:set -DnewVersion=${env.version}"
-                        sh 'mvn clean deploy -B'
-                        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                        step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar, **/target/*.war, **/target/*.zip', fingerprint: true])
-                    }
-                    else {
-                        echo 'Build is not for deploy'
-                    }
+                    currentBuild.description = "Release: ${env.version}"
+                    sh "mvn versions:set -DnewVersion=${env.version}"
+                    sh 'mvn clean deploy -B'
+                    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar, **/target/*.war, **/target/*.zip', fingerprint: true])
                 }
             }
         }
         stage('Deploy to atest') {
+            agent any
+            when { branch 'master' }
             steps {
                 script {
-                    if (isDeployBuild()) {
-                        apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
-                        sh(returnStdout: false, script:
-                            "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
-                        updateHiera('atest', "${env.version}", "${apikey}")
-                        updateControl('atest', "${env.version}")
-                        publishTo('atest', "${env.version}", "${apikey}")
-                    }
+                    apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
+                    sh(returnStdout: false, script:
+                        "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
+                    updateHiera('atest', "${env.version}", "${apikey}")
+                    updateControl('atest', "${env.version}")
+                    publishTo('atest', "${env.version}", "${apikey}")
                 }
             }
         }
+        stage('Confirm release') {
+            when { branch 'master' }
+            steps {
+                input message: "Confirm release of version ${env.version} to systest"
+            }
+        }
         stage('Deploy to systest') {
+            agent any
+            when { branch 'master' }
             steps {
                 script {
-                    if (isDeployBuild()) {
-                        apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
-                        sh(returnStdout: false, script:
-                            "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
-                        timeout(time: 5, unit: 'DAYS') {
-                            input "Do you approve deployment of version ${version} to systest?"
-                            updateHiera('systest', "${env.version}", "${apikey}")
-                            updateControl('systest', "${env.version}")
-                            publishTo('systest', "${env.version}", "${apikey}")
-                        }
-                    }
+                    apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
+                    sh(returnStdout: false, script:
+                        "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
+                    updateHiera('systest', "${env.version}", "${apikey}")
+                    updateControl('systest', "${env.version}")
+                    publishTo('systest', "${env.version}", "${apikey}")
                 }
             }
         }
@@ -145,10 +149,6 @@ boolean isPreviousBuildFailOrUnstable() {
         return true
     }
     return false
-}
-
-boolean isDeployBuild() {
-    return env.BRANCH_NAME.matches('master')
 }
 
 boolean isQuickBuild() {
