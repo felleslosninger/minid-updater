@@ -32,8 +32,8 @@ pipeline {
                     currentBuild.description = "Release: ${env.version}"
                     sh "mvn versions:set -DnewVersion=${env.version}"
                     sh 'mvn clean deploy -B'
-                    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar, **/target/*.war, **/target/*.zip', fingerprint: true])
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    tagPuppetModules("${env.version}")
                 }
             }
         }
@@ -42,12 +42,17 @@ pipeline {
             when { branch 'master' }
             steps {
                 script {
-                    apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
-                    sh(returnStdout: false, script:
-                        "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
-                    updateHiera('atest', "${env.version}", "${apikey}")
+                    updateHiera('atest', "${env.version}")
                     updateControl('atest', "${env.version}")
-                    publishTo('atest', "${env.version}", "${apikey}")
+                    deployToAtest()
+                }
+            }
+        }
+        stage('Test system on atest') {
+            when { branch 'master' }
+            steps {
+                script {
+                    testSystem('atest')
                 }
             }
         }
@@ -62,12 +67,17 @@ pipeline {
             when { branch 'master' }
             steps {
                 script {
-                    apikey = sh(returnStdout: true, script: 'cat /run/secrets/minidonthefly-shenzi').trim()
-                    sh(returnStdout: false, script:
-                        "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Tag_puppet/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"NEW_VERSION\", \"value\":${env.version}}]}'")
-                    updateHiera('systest', "${env.version}", "${apikey}")
+                    updateHiera('systest', "${env.version}")
                     updateControl('systest', "${env.version}")
-                    publishTo('systest', "${env.version}", "${apikey}")
+                    deployToSystest()
+                }
+            }
+        }
+        stage('Test system on systest01') {
+            when { branch 'master' }
+            steps {
+                script {
+                    testSystem('systest')
                 }
             }
         }
@@ -86,6 +96,32 @@ pipeline {
             echo "Finish building ${env.commitMessage}"
         }
     }
+}
+
+def testSystem(String profile) {
+    git(url: 'git@git.difi.local:eid', branch: 'develop')
+    sh("cd cucumber/cucumber-test-multienv && mvn verify -P ${profile}")
+}
+
+def tagPuppetModules(String tagName) {
+    sh("""
+       #!/usr/bin/env bash
+       local workDirectory=\$(mktemp -d /tmp/XXXXXXXXXXXX)
+       git clone --bare git@eid-gitlab.dmz.local:puppet/puppet_modules.git \${workDirectory}
+       cd \${workDirectory}
+       git tag ${tagName}
+       git push --tag
+       cd -
+       rm -rf \${workDirectory}
+       """)
+}
+
+def deployToAtest() {
+    sh("pipeline/puppet-kick-atest.sh")
+}
+
+def deployToSystest() {
+    sh("pipeline/puppet-kick-systest.sh")
 }
 
 def notifyFailed() {
@@ -118,7 +154,7 @@ def notifySuccess() {
     }
 }
 
-def updateHiera(releaseTo, version, apikey) {
+def updateHiera(releaseTo, version) {
     println "Updating puppet-hiera ${releaseTo} to use version ${version} for minid-updater"
     build job: '/puppet-hiera/development', parameters: [
         [$class: 'StringParameterValue', name: 'deployTo', value: releaseTo],
@@ -136,12 +172,6 @@ def updateControl(releaseTo, version) {
         [$class: 'StringParameterValue', name: 'modules', value: "DIFI-minid_updater"]
     ]
     println "Control set up with version ${version}"
-}
-
-def publishTo(publishTo, version, apikey) {
-    sh(returnStdout: false, script:
-        "curl -X POST http://eid-jenkins01.dmz.local:8080/job/Deploy/build --user jenkins-02:${apikey} --data-urlencode json='{\"parameter\": [{\"name\":\"ENVIRONMENT\", \"value\":\"${publishTo}\"}]}'"
-    )
 }
 
 boolean isPreviousBuildFailOrUnstable() {
