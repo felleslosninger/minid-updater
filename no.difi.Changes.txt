@@ -1,3 +1,4 @@
+bugfix/PBLEID-14150: System-test-stadiene feiler fordi de ikke har definert noen bygge-agent
 feature/PBLEID-14145: Integrert utrulling i utrullingsløpet
 bugfix/PBLEID-14142: Holder ikke lengre på arbeidstråd mens den venter på respons fra bruker
 feature/PBLEID-14084: Redusere spam fra Maven i loggen på Jenkins

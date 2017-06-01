@@ -49,6 +49,7 @@ pipeline {
             }
         }
         stage('Test system on atest') {
+            agent any
             when { branch 'master' }
             steps {
                 script {
@@ -74,6 +75,7 @@ pipeline {
             }
         }
         stage('Test system on systest01') {
+            agent any
             when { branch 'master' }
             steps {
                 script {
