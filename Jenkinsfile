@@ -156,24 +156,48 @@ def notifySuccess() {
     }
 }
 
-def updateHiera(releaseTo, version) {
-    println "Updating puppet-hiera ${releaseTo} to use version ${version} for minid-updater"
-    build job: '/puppet-hiera/development', parameters: [
-        [$class: 'StringParameterValue', name: 'deployTo', value: releaseTo],
-        [$class: 'StringParameterValue', name: 'version', value: version],
-        [$class: 'StringParameterValue', name: 'modules', value: "minid_updater"]
-    ]
-    println "Hiera set up with version ${version}"
+def updateHiera(environment, version) {
+    modules='minid_updater'
+    println "Updating version of modules ${modules} to ${version} for environment ${environment}"
+    sh("""
+        #!/usr/bin/env bash
+        local workDirectory=\$(mktemp -d /tmp/XXXXXXXXXXXX)
+        local platformFile=nodes/${environment}/platform.yaml
+        git clone git@eid-gitlab.dmz.local:puppet/puppet_hiera.git \${workDirectory}
+        cd \${workDirectory}
+        for module in ${modules}; do
+            sed -i "s/\\(\${module}::component_version:\\s\\).*/\\1\\"${version}\\"/i" \${platformFile}
+        done
+        git add \${platformFile}
+        git config --local user.name 'Jenkins'
+        git config --local user.email 'jenkins@difi.no'
+        git commit -m "[${env.JOB_NAME} #${env.BUILD_NUMBER}]: Updated version of modules ${modules} to ${version} for environment ${environment}" \${platformFile}       
+        git push
+        cd -
+        rm -rf \${workDirectory}
+    """)
 }
 
-def updateControl(releaseTo, version) {
-    println "Updating puppet-control ${releaseTo} to use version ${version} for minid-updater module"
-    build job: "/puppet-control/${releaseTo}", parameters: [
-        [$class: 'StringParameterValue', name: 'deployTo', value: releaseTo],
-        [$class: 'StringParameterValue', name: 'version', value: version],
-        [$class: 'StringParameterValue', name: 'modules', value: "DIFI-minid_updater"]
-    ]
-    println "Control set up with version ${version}"
+def updateControl(environment, version) {
+    modules='DIFI-minid_updater'
+    println "Updating version of modules ${modules} to ${version} for environment ${environment}"
+    sh("""
+        #!/usr/bin/env bash
+        local workDirectory=\$(mktemp -d /tmp/XXXXXXXXXXXX)
+        local puppetFile=Puppetfile
+        git clone -b ${environment} --single-branch git@eid-gitlab.dmz.local:puppet/puppet_control.git \${workDirectory}
+        cd \${workDirectory}
+        for module in ${modules}; do
+            sed -ie \"/\${module}/ s/:ref => '[^']*'/:ref => '${version}'/\" \${puppetFile}
+        done
+        git add \${puppetFile}
+        git config --local user.name 'Jenkins'
+        git config --local user.email 'jenkins@difi.no'
+        git commit -m "[${env.JOB_NAME} #${env.BUILD_NUMBER}]: Updated version of modules ${modules} to ${version} for environment ${environment}" \${puppetFile}       
+        git push
+        cd -
+        rm -rf \${workDirectory}
+    """)
 }
 
 boolean isPreviousBuildFailOrUnstable() {
