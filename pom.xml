@@ -12,7 +12,6 @@
 
     <modules>
         <module>minid-web-updater</module>
-        <module>system-tests</module>
     </modules>
 
     <properties>
@@ -21,52 +20,23 @@
         <generateBackupPoms>false</generateBackupPoms>
     </properties>
 
-    <!-- Version management of common dependencies. -->
-
-    <!-- Plugin configuration -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <repositories>
         <repository>
-            <id>central</id>
+            <id>difi-artifactory</id>
             <name>libs-release</name>
             <url>${artifactory.url}/libs-release</url>
         </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>${artifactory.url}/libs-snapshot</url>
-        </repository>
     </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>plugins-release</name>
-            <url>${artifactory.url}/plugins-release</url>
-        </pluginRepository>
-        <pluginRepository>
-            <snapshots />
-            <id>eid-snapshots</id>
-            <name>plugins-snapshot</name>
-            <url>${artifactory.url}/plugins-snapshot</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <distributionManagement>
-        <repository>
-            <id>eid-releases</id>
-            <name>Idporten Releases</name>
-            <url>${artifactory.url}/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>eid-snapshots</id>
-            <name>Idporten Snapshots</name>
-            <url>${artifactory.url}/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
