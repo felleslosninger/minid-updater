@@ -2,6 +2,7 @@ pipelineWithMavenAndDocker {
     verificationEnvironment = 'eid-verification'
     stagingEnvironment = 'eid-staging'
     stagingEnvironmentType = 'puppet'
+    productionEnvironment = 'eid-production'
     gitSshKey = 'ssh.git.difi.local'
     puppetModules = 'minid_updater'
     librarianModules = 'DIFI-minid_updater'
