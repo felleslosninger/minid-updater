@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+version=DEV-SNAPSHOT
+registry=local
+localConfig=$1
+
+rm -rf docker/minid-updater/puppet_hiera/*  docker/minid-updater/puppet_modules/* docker/minid-updater/war/*|| exit 1
+mvn package -DskipTests || exit 1
+docker/build-images ${registry} ${version} ${localConfig}|| exit 1
+

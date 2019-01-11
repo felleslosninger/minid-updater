@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+buildImage() {
+    local registry=$1
+    local imageName=$2
+    local version=$3
+    local options=$4
+    docker build ${options} -t ${registry}/${imageName}:${version} docker/${imageName} || { >&2 echo "Failed to build image ${imageName}"; return 1; }
+}
+
+build() {
+    [[ $# -ge 2 ]] || { >&2 echo "Usage: $0 REGISTRY VERSION "; return 1; }
+    local registry=$1
+    local version=$2
+    [[ "$3" == "localConfig" ]] || local pull="--pull"
+    cp -r puppet_modules docker/minid-updater/ || return 1
+    cp -r puppet_hiera docker/minid-updater/ || return 1
+    cp minid-web-updater/target/minid-web-updater.war docker/minid-updater/war/minid-updater.war || return 1
+    buildImage ${registry} minid-updater ${version} "${pull}" || return 1
+    }
+
+build "${@}" || exit 1

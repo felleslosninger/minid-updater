@@ -1,10 +1,9 @@
 pipelineWithMavenAndDocker {
-    verificationEnvironment = 'eid-verification'
+    verificationEnvironment = 'eid-verification2'
     stagingEnvironment = 'eid-staging'
-    stagingEnvironmentType = 'puppet'
+    stagingEnvironmentType = 'puppet2'
     productionEnvironment = 'eid-production'
     gitSshKey = 'ssh.git.difi.local'
     puppetModules = 'minid_updater'
-    librarianModules = 'DIFI-minid_updater'
     puppetApplyList = [' eid-systest-admin01.dmz.local baseconfig,minid_updater']
 }
