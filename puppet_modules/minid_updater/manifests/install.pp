@@ -19,16 +19,49 @@ class minid_updater::install inherits minid_updater {
     }
   }
 
-  file { "${minid_updater::config_root}${minid_updater::application}":
+  user { $minid_updater::service_name:
+    ensure => present,
+    shell  => '/sbin/nologin',
+    home   => '/',
+  } ->
+  file { "${minid_updater::config_dir}${minid_updater::application}":
     ensure => 'directory',
-    owner  => $minid_updater::tomcat_user,
-    group  => $minid_updater::tomcat_group,
+    mode   => '0755',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
+  } ->
+  file { "${minid_updater::config_dir}${minid_updater::application}/config":
+    ensure => 'directory',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
+    mode   => '0755',
+  } ->
+  file { "${minid_updater::config_dir}${minid_updater::application}/messages":
+    ensure => 'directory',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
     mode   => '0755',
   } ->
   file { "${minid_updater::log_root}${minid_updater::application}":
     ensure => 'directory',
-    owner  => $minid_updater::tomcat_user,
-    group  => $minid_updater::tomcat_group,
     mode   => '0755',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
+  } ->
+  file { "${minid_updater::log_root}${minid_updater::application}/audit":
+    ensure => 'directory',
+    mode   => '0755',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
+  } ->
+  file { "${minid_updater::install_dir}${minid_updater::application}":
+    ensure => 'directory',
+    mode   => '0644',
+    owner  => $minid_updater::service_name,
+    group  => $minid_updater::service_name,
+  }
+
+  difilib::spring_boot_logrotate { $minid_updater::application:
+    application => $minid_updater::application,
   }
 }

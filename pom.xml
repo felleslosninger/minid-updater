@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>no.idporten</groupId>
     <artifactId>minid-updater</artifactId>
-    <version>DEV-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>MinID Updater</name>
-    <description>Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo backend on JMS.</description>
-
-    <modules>
-        <module>minid-web-updater</module>
-    </modules>
+    <description>Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo
+        backend on JMS.
+    </description>
 
     <properties>
+        <java.version>1.8</java.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <artifactory.url>http://eid-artifactory.dmz.local:8080/artifactory</artifactory.url>
         <generateBackupPoms>false</generateBackupPoms>
+        <eid.common.version>2018-11-27-0937-660e8eb</eid.common.version>
+        <jackson.version>2.9.8</jackson.version>
+        <junit.version>4.12</junit.version>
+        <mockito.version>2.24.0</mockito.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <activemq.version>5.15.8</activemq.version>
+        <logback.version>1.2.3</logback.version>
+        <resilience.version>2019-01-18-1311-9ea27ce</resilience.version>
+        <spring.boot.version>2.1.3.RELEASE</spring.boot.version>
     </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 
     <repositories>
         <repository>
@@ -38,5 +41,152 @@
             <url>${artifactory.url}/libs-release</url>
         </repository>
     </repositories>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring.boot.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>resilience-util</artifactId>
+            <version>${resilience.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>resilience-util-spring-boot-2</artifactId>
+            <version>${resilience.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>minid-lib-ldap</artifactId>
+            <version>${eid.common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>kontaktinfo-lib-common</artifactId>
+            <version>${eid.common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-id-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -1,0 +1,46 @@
+# Custom version actuator
+projectVersion: @project.version@
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "version, info, health"
+  health:
+    defaults:
+      enabled: false
+    jms:
+      enabled: false
+    ldap:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+
+event:
+  jmsUrl: tcp://idporten-utv3:61616
+  jmsQueue: "jmsQueueName"
+
+update:
+  jms:
+    url: tcp://idporten-utv3:61616
+    queue: "jmsQueueName"
+    concurrentConsumers: 1
+    maxConcurrentConsumers: 1
+
+server:
+  port: 9991
+  tomcat:
+    accesslog:
+      directory: c:/var/log/minid-updater
+      enabled: true
+      rotate: false
+      pattern: "%h\u0009%l\u0009%u\u0009%t\u0009\u0022%r\u0022\u0009%s\u0009%b\u0009%D\u0009%{no.difi.correlationId}i"
+    servlet:
+      context-path: /minprofil
+
+## Generic application config
+audit:
+  logDir: c:/var/log/minid-updater
+  logFile: audit2.log

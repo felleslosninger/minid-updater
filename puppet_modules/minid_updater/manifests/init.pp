@@ -1,9 +1,4 @@
 class minid_updater (
-  $tomcat_instance            = $minid_updater::params::tomcat_instance,
-
-  $tomcat_details             = $minid_updater::params::tomcat_details,
-  $tomcat_user                = $minid_updater::params::tomcat_user,
-  $tomcat_group               = $minid_updater::params::tomcat_group,
   $eventlog_jms_url           = $minid_updater::params::eventlog_jms_url,
   $eventlog_jms_queuename     = $minid_updater::params::eventlog_jms_queuename,
   $ldap_url                   = $minid_updater::params::ldap_url,
@@ -21,9 +16,6 @@ class minid_updater (
 
   include platform
 
-  validate_string($tomcat_user)
-  validate_string($tomcat_group)
-  validate_hash($tomcat_details)
   validate_string($eventlog_jms_url)
   validate_string($eventlog_jms_queuename)
   validate_string($log_level)

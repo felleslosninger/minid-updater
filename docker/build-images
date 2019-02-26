@@ -15,7 +15,7 @@ build() {
     [[ "$3" == "localConfig" ]] || local pull="--pull"
     cp -r puppet_modules docker/minid-updater/ || return 1
     cp -r puppet_hiera docker/minid-updater/ || return 1
-    cp minid-web-updater/target/minid-web-updater.war docker/minid-updater/war/minid-updater.war || return 1
+    cp target/minid-updater.war docker/minid-updater/war/minid-updater.war || return 1
     buildImage ${registry} minid-updater ${version} "${pull}" || return 1
     }
 

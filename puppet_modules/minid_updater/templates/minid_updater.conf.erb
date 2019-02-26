@@ -1,0 +1,7 @@
+JAVA_HOME=<%= @java_home %>
+LOG_FOLDER=<%= @log_root %><%= @application %>
+RUN_ARGS="\
+ --server.port=<%= @server_port %> \
+ --logging.config=<%= @config_dir %><%= @application %>/logback.xml \
+ --spring.config.additional-location=<%= @config_dir %><%= @application %>/application.yaml
+"

@@ -16,30 +16,29 @@ COPY /puppet_hiera/ /puppet/hiera/
 
 RUN /puppet/puppet-apply
 
-FROM tomcat:7-jre8-slim
-
-RUN apt-get update; apt-get install curl -y
+FROM openjdk:8-jdk-slim
+ENV TZ=Europe/Oslo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update; apt-get install curl wait-for-it -y
 RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.6.13-amd64.deb
 RUN dpkg -i filebeat-5.6.13-amd64.deb
 RUN rm filebeat-5.6.13-amd64.deb
 
+
 ARG APPLICATION=minid-updater
 ARG CONTEXT=minid-updater
-ENV TZ=Europe/Oslo
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY --from=config /etc/filebeat/ /etc/filebeat/
 COPY --from=config /etc/opt/${APPLICATION}/ /etc/opt/${APPLICATION}/
-COPY --from=config /opt/${APPLICATION}/conf/server.xml /usr/local/tomcat/conf/server.xml
-RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY /war/${CONTEXT}.war /usr/local/tomcat/webapps/${CONTEXT}.war
-
+RUN mkdir /usr/local/webapps/
+COPY /war/${APPLICATION}.war /usr/local/webapps/application.war
+COPY --from=config /opt/${APPLICATION}/${APPLICATION}.conf /usr/local/webapps/application.conf
 COPY entrypoint.sh /entrypoint.sh
 HEALTHCHECK --interval=10s --start-period=10s --retries=15 \
-    CMD { curl -f --max-time 10 http://localhost:8080/minid-updater; } || exit 1
+    CMD { curl -f --max-time 10 http://localhost:8080/minid-updater/version; } || exit 1
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
-
 
 
 

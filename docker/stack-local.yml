@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  desktop:
+    image: consol/centos-xfce-vnc
+    networks:
+      - atest
+    ports:
+      - 5901
+      - 6901
+
+networks:
+  atest:
+    driver: overlay
+    attachable: true

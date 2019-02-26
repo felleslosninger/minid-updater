@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+before() {
+    [[ $# -eq 3 ]] || { >&2 echo "Usage: $0 STACK_NAME APPLICATION_HOST VERSION"; return 1; }
+    echo "LOG_ENV=$3">docker/log_config
+}
+
+after() {
+    [[ $# -eq 2 ]] || { >&2 echo "Usage: $0 STACK_NAME APPLICATION_HOST"; return 1; }
+    rm docker/log_config
+}
+
+case $1 in
+"before")
+    shift
+    before ${@} || exit 1
+    ;;
+"after")
+    shift
+    after ${@} || exit 1
+    ;;
+esac

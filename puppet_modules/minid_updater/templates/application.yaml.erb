@@ -1,0 +1,48 @@
+# Custom version actuator
+projectVersion: @project.version@
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "version, info, health"
+  health:
+    defaults:
+      enabled: false
+    jms:
+      enabled: false
+    ldap:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+
+event:
+  jmsUrl: <%= @eventlog_jms_url %>
+  jmsQueue: <%= @eventlog_jms_queuename %>
+
+spring:
+  ldap:
+    urls: <%= @ldap_url %>
+    username: <%= @ldap_userdn %>
+    password: <%= @ldap_password %>
+    base: <%= @ldap_base_minid %>
+    maxConnections: 10
+    maxWait: 5000
+
+update:
+  jms:
+    url: <%= @update_jms_url %>
+    queue: <%= @update_jms_queuename %>
+    concurrentConsumers: <%= @event_jms_concurrent_consumers %>
+    maxConcurrentConsumers: <%= @event_jms_max_concurrent_consumers %>
+
+## Tomcat access log
+server:
+  port: <%= @server_port %>
+  tomcat:
+    accesslog:
+      directory: <%= @log_root%><%= @application %>
+    max-threads: <%= @server_tomcat_max_threads%>
+    min-spare-threads: <%= @server_tomcat_min_spare_threads%>
