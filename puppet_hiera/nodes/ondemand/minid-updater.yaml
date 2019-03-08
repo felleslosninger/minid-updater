@@ -1,3 +1,17 @@
 ---
 classes:
   - minid_updater
+  - filebeat
+
+minid_updater::server_port: 8080
+
+filebeat::prospectors:
+  tomcat-access:
+    paths:
+      - '/var/log/minid-updater/access_log.log'
+    doc_type: 'tomcat-access'
+    fields_under_root: true
+    fields:
+      application: minid-updater
+      environment: ondemand
+      log_env: "${LOG_ENV:unset}"

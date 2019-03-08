@@ -32,11 +32,11 @@ COPY --from=config /etc/filebeat/ /etc/filebeat/
 COPY --from=config /etc/opt/${APPLICATION}/ /etc/opt/${APPLICATION}/
 
 RUN mkdir /usr/local/webapps/
-COPY /war/${APPLICATION}.war /usr/local/webapps/application.war
+COPY /jar/${APPLICATION}.jar /usr/local/webapps/application.jar
 COPY --from=config /opt/${APPLICATION}/${APPLICATION}.conf /usr/local/webapps/application.conf
 COPY entrypoint.sh /entrypoint.sh
 HEALTHCHECK --interval=10s --start-period=10s --retries=15 \
-    CMD { curl -f --max-time 10 http://localhost:8080/minid-updater/version; } || exit 1
+    CMD { curl -f --max-time 10 http://localhost:8080/health; } || exit 1
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
 

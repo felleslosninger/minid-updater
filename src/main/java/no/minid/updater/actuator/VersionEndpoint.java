@@ -11,7 +11,8 @@ import java.util.Map;
 @Component
 @Endpoint(id = "version", enableByDefault = false)
 public class VersionEndpoint {
-    @Value("${projectVersion}")
+
+    @Value("${project.version}")
     private String projectVersion;
 
     @ReadOperation

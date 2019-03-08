@@ -5,6 +5,7 @@ buildImage() {
     local imageName=$2
     local version=$3
     local options=$4
+    echo docker build ${options} -t ${registry}/${imageName}:${version} docker/${imageName}
     docker build ${options} -t ${registry}/${imageName}:${version} docker/${imageName} || { >&2 echo "Failed to build image ${imageName}"; return 1; }
 }
 
@@ -15,7 +16,7 @@ build() {
     [[ "$3" == "localConfig" ]] || local pull="--pull"
     cp -r puppet_modules docker/minid-updater/ || return 1
     cp -r puppet_hiera docker/minid-updater/ || return 1
-    cp target/minid-updater.war docker/minid-updater/war/minid-updater.war || return 1
+    cp target/minid-updater.jar docker/minid-updater/jar/minid-updater.jar || return 1
     buildImage ${registry} minid-updater ${version} "${pull}" || return 1
     }
 

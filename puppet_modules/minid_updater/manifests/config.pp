@@ -16,32 +16,15 @@ class minid_updater::config inherits minid_updater{
   } ->
   file { "/etc/rc.d/init.d/${minid_updater::service_name}":
     ensure => 'link',
-    target => "${minid_updater::install_dir}${minid_updater::application}/${minid_updater::application}.war",
+    target => "${minid_updater::install_dir}${minid_updater::application}/${minid_updater::application}.jar",
   }
 
-  file { "${minid_updater::config_root}${minid_updater::application}/minidUpdater.properties":
-    ensure  => 'file',
-    content => template("${minid_updater::module}/minidUpdater.properties.erb"),
-    owner   => $minid_updater::service_name,
-    group   => $minid_updater::service_name,
-    mode    => '0644',
-  } ->
-  file { "${minid_updater::config_root}${minid_updater::application}/minid.properties":
-    ensure  => 'file',
-    content => template("${minid_updater::module}/minid.properties.erb"),
-    owner   => $minid_updater::service_name,
-    group   => $minid_updater::service_name,
-    mode    => '0644',
-  } ->
-  file { "${minid_updater::config_root}${minid_updater::application}/log4j.xml":
-    ensure  => 'absent',
-  } ->
-  file { "${minid_updater::config_root}${minid_updater::application}/logback.xml":
-    ensure  => 'file',
-    content => template("${minid_updater::module}/logback.xml.erb"),
-    owner   => $minid_updater::service_name,
-    group   => $minid_updater::service_name,
-    mode    => '0644',
+  difilib::logback_config { $minid_updater::application:
+    application       => $minid_updater::application,
+    owner             => $minid_updater::service_name,
+    group             => $minid_updater::service_name,
+    loglevel_no       => $minid_updater::log_level,
+    loglevel_nondifi  => $minid_updater::log_level,
   }
 
 }

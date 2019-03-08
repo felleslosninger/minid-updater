@@ -1,23 +1,3 @@
-# Custom version actuator
-projectVersion: @project.version@
-
-management:
-  endpoints:
-    web:
-      base-path: /
-      exposure:
-        include: "version, info, health"
-  health:
-    defaults:
-      enabled: false
-    jms:
-      enabled: false
-    ldap:
-      enabled: false
-  endpoint:
-    health:
-      show-details: always
-
 event:
   jmsUrl: <%= @eventlog_jms_url %>
   jmsQueue: <%= @eventlog_jms_queuename %>
@@ -33,7 +13,7 @@ spring:
 
 update:
   jms:
-    url: <%= @update_jms_url %>
+    url: <%= @eventlog_jms_url %>
     queue: <%= @update_jms_queuename %>
     concurrentConsumers: <%= @event_jms_concurrent_consumers %>
     maxConcurrentConsumers: <%= @event_jms_max_concurrent_consumers %>

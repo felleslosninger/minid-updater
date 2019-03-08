@@ -1,7 +1,7 @@
 #params.pp
 class minid_updater::params {
   $server_tomcat_max_threads        = 200
-  $server_tomcat_min_threads        = 10
+  $server_tomcat_min_spare_threads  = 10
   $eventlog_jms_url                 = hiera('platform::jms_url')
   $eventlog_jms_queuename           = hiera('idporten_logwriter::jms_queueName')
   $ldap_url                         = hiera('idporten_opensso_opendj::url')
@@ -12,10 +12,9 @@ class minid_updater::params {
   $event_jms_concurrent_consumers   = 1
   $event_jms_max_concurrent_consumers = 1
   $log_level                = 'WARN'
-  $server_port                = 9990
+  $server_port                = 8080
   $config_root                = '/etc/opt/'
   $log_root                   = '/var/log/'
-  $module                     = 'minid_updater'
   $application                = 'minid-updater'
   $artifact_id                = 'minid-updater'
   $context                    = 'minid-updater'

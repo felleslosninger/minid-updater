@@ -28,7 +28,7 @@ public class MinIdUpdaterApplication {
     @Value("${update.jms.queue}")
     private String queueName;
 
-    @Value("${update.jms.url}")
+    @Value("${event.jmsUrl}")
     private String eventlogJmsUrl;
 
     @Value("${update.jms.concurrentConsumers}")

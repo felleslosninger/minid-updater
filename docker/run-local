@@ -10,7 +10,7 @@ mvn package -DskipTests || exit 1
 docker/build-images ${registry} ${version} ${localConfig}|| exit 1
 
 echo "LOG_ENV=$(whoami)" > docker/log_config
-VERSION=${version} REGISTRY=${registry} docker stack deploy -c docker/stack-local.yml --resolve-image=never ${stackName} || exit 1
+VERSION=${version} REGISTRY=${registry} docker stack deploy -c docker/stack.yml --resolve-image=never ${stackName} || exit 1
 rm docker/log_config
 docker stack deploy -c docker/stack-local.yml ${stackName} || exit 1
 docker service inspect ${stackName}_desktop --format \

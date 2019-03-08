@@ -10,8 +10,7 @@
     </parent>
     <groupId>no.idporten</groupId>
     <artifactId>minid-updater</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>DEV-SNAPSHOT</version>
     <name>MinID Updater</name>
     <description>Application for updating users in the MinID LDAP. Listens for change notifications from Kontaktinfo
         backend on JMS.
@@ -29,7 +28,7 @@
         <mockito.version>2.24.0</mockito.version>
         <slf4j.version>1.7.25</slf4j.version>
         <activemq.version>5.15.8</activemq.version>
-        <logback.version>1.2.3</logback.version>
+        <logstash.logback.version>5.2</logstash.logback.version>
         <resilience.version>2019-01-18-1311-9ea27ce</resilience.version>
         <spring.boot.version>2.1.3.RELEASE</spring.boot.version>
     </properties>
@@ -106,9 +105,9 @@
             <version>${eid.common.version}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.logback.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>

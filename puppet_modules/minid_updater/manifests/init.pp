@@ -1,27 +1,20 @@
 class minid_updater (
-  $eventlog_jms_url           = $minid_updater::params::eventlog_jms_url,
-  $eventlog_jms_queuename     = $minid_updater::params::eventlog_jms_queuename,
-  $ldap_url                   = $minid_updater::params::ldap_url,
-  $ldap_userdn                = $minid_updater::params::ldap_userdn,
-  $ldap_password              = $minid_updater::params::ldap_password,
-  $ldap_base_minid            = $minid_updater::params::ldap_base_minid,
-  $update_jms_queuename       = $minid_updater::params::update_jms_queuename,
-  $log_level                  = $minid_updater::params::log_level,
-  $config_root                = $minid_updater::params::config_root,
-  $log_root                   = $minid_updater::params::log_root,
-  $module                     = $minid_updater::params::module,
-  $application                = $minid_updater::params::application,
-  $context                    = $minid_updater::params::context,
+  String $eventlog_jms_url           = $minid_updater::params::eventlog_jms_url,
+  String $eventlog_jms_queuename     = $minid_updater::params::eventlog_jms_queuename,
+  String $ldap_url                   = $minid_updater::params::ldap_url,
+  String $ldap_userdn                = $minid_updater::params::ldap_userdn,
+  String $ldap_password              = $minid_updater::params::ldap_password,
+  String $ldap_base_minid            = $minid_updater::params::ldap_base_minid,
+  String $update_jms_queuename       = $minid_updater::params::update_jms_queuename,
+  String $log_level                  = $minid_updater::params::log_level,
+  String $config_root                = $minid_updater::params::config_root,
+  String $log_root                   = $minid_updater::params::log_root,
+  String $application                = $minid_updater::params::application,
+  String $context                    = $minid_updater::params::context,
+
 )inherits minid_updater::params {
 
   include platform
-
-  validate_string($eventlog_jms_url)
-  validate_string($eventlog_jms_queuename)
-  validate_string($log_level)
-  validate_string($module)
-  validate_string($application)
-  validate_string($context)
 
   anchor { 'minid_updater::begin': } ->
   class { '::minid_updater::install': } ->
