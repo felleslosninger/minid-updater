@@ -14,3 +14,23 @@ management:
     health:
       show-details: always
       enabled: true
+
+event:
+  jmsUrl: tcp://localhost:61717 # Ondemand miljøet må køyre for at denne url'n skal fungere
+  jmsQueue: logqueue
+
+spring:
+  ldap:
+    urls: ldap://localhost:399 # Ondemand miljøet må køyre for at denne url'n skal fungere
+    username: cn=directory manager
+    password: password
+    base: dc=norge,dc=no
+    maxConnections: 10
+    maxWait: 5000
+
+update:
+  jms:
+    url: tcp://localhost:61717 # Ondemand miljøet må køyre for at denne url'n skal fungere
+    queue: minid.update.queue
+    concurrentConsumers: 1
+    maxConcurrentConsumers: 1
