@@ -1,12 +1,12 @@
 package no.minid.updater;
 
 import no.minid.service.MinIDService;
-import no.minid.service.impl.MinIDServiceImpl;
 import no.minid.updater.jms.UserUpdateMessageListener;
 import no.minid.updater.service.UpdaterService;
 import no.minid.updater.service.impl.UpdaterServiceImpl;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,11 +25,14 @@ public class MinIdUpdaterApplication {
         SpringApplication.run(MinIdUpdaterApplication.class, args);
     }
 
+    @Autowired
+    private MinIDService minIDService;
+
+    @Value("${update.jms.url}")
+    private String updateQueueUrl;
+
     @Value("${update.jms.queue}")
     private String queueName;
-
-    @Value("${event.jmsUrl}")
-    private String eventlogJmsUrl;
 
     @Value("${update.jms.concurrentConsumers}")
     private Integer jmsConcurrentConsumers;
@@ -38,13 +41,8 @@ public class MinIdUpdaterApplication {
     private Integer jmsMaxConcurrentConsumers;
 
     @Bean
-    MinIDService minIDService() {
-        return new MinIDServiceImpl();
-    }
-
-    @Bean
     UpdaterService updaterService() {
-        return new UpdaterServiceImpl(minIDService());
+        return new UpdaterServiceImpl(minIDService);
     }
 
     @Bean
@@ -60,7 +58,7 @@ public class MinIdUpdaterApplication {
     @Bean
     ActiveMQConnectionFactory minIdUpdaterAmqConnectionFactoryBroker() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL(eventlogJmsUrl);
+        activeMQConnectionFactory.setBrokerURL(updateQueueUrl);
         return activeMQConnectionFactory;
     }
 

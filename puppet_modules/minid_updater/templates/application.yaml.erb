@@ -26,3 +26,7 @@ server:
       directory: <%= @log_root%><%= @application %>
     max-threads: <%= @server_tomcat_max_threads%>
     min-spare-threads: <%= @server_tomcat_min_spare_threads%>
+
+audit:
+  logDir: <%= @log_root%><%= @application %>/audit
+  logFile:  <%= @auditlog_file %>
