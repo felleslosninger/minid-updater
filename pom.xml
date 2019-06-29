@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>no.idporten</groupId>
@@ -22,15 +22,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <artifactory.url>http://eid-artifactory.dmz.local:8080/artifactory</artifactory.url>
         <generateBackupPoms>false</generateBackupPoms>
-        <eid.common.version>2018-11-27-0937-660e8eb</eid.common.version>
-        <jackson.version>2.9.8</jackson.version>
+        <eid.common.version>2019-06-27-1343-fe81e6d</eid.common.version>
+        <jackson.version>2.9.9</jackson.version>
         <junit.version>4.12</junit.version>
         <mockito.version>2.24.0</mockito.version>
-        <slf4j.version>1.7.25</slf4j.version>
+        <slf4j.version>1.7.26</slf4j.version>
         <activemq.version>5.15.8</activemq.version>
         <logstash.logback.version>5.2</logstash.logback.version>
-        <resilience.version>2019-01-18-1311-9ea27ce</resilience.version>
-        <spring.boot.version>2.1.3.RELEASE</spring.boot.version>
+        <resilience.version>2019-06-27-1212-079df00</resilience.version>
+        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
     </properties>
 
     <repositories>

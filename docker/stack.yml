@@ -16,36 +16,6 @@ services:
       placement:
         constraints:
           - node.labels.atest == true
-  idporten-admin:
-    image: eid-jenkins02.dmz.local:8081/idporten-admin:latest
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    configs:
-      - log_config
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  idporten-oidc-provider:
-    image: eid-jenkins02.dmz.local:8081/idporten-oidc-provider:latest
-    configs:
-      - log_config
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
   activemq:
     image:  rmohr/activemq:5.11.1
     extra_hosts:
@@ -62,74 +32,6 @@ services:
       placement:
         constraints:
           - node.labels.atest == true
-  eventlog-db:
-    image: eid-jenkins02.dmz.local:8081/eventlog-db:latest
-    ports:
-      - 3306
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  kontaktregister-db:
-    image: eid-jenkins02.dmz.local:8081/kontaktregister-db:latest
-    ports:
-      - 3306
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  oidc-db:
-    image: eid-jenkins02.dmz.local:8081/oidc-db:latest
-    ports:
-      - 3306
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    networks:
-      atest:
-    dns: 8.8.8.8
-    command: --sql_mode=""
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  testsp-saml:
-    image:  eid-jenkins02.dmz.local:8081/testsp-saml:latest
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    configs:
-      - log_config
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  kontaktinfo-backend:
-    image:  eid-jenkins02.dmz.local:8081/kontaktinfo-backend:latest
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    configs:
-      - log_config
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
   opendj:
     image: eid-jenkins02.dmz.local:8081/opendj:latest
     extra_hosts:
@@ -138,49 +40,6 @@ services:
       - log_config
     ports:
       - 399:389 # Statisk ekstern port pga lokal config har avhengigheit til tjenesten
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  serviceprovider-backend:
-    image: eid-jenkins02.dmz.local:8081/serviceprovider-backend:latest
-    configs:
-      - log_config
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  idporten-openam:
-    image: eid-jenkins02.dmz.local:8081/idporten-openam:latest
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    configs:
-      - log_config
-    ports:
-      - 8080
-    networks:
-      atest:
-    dns: 8.8.8.8
-    deploy:
-      placement:
-        constraints:
-          - node.labels.atest == true
-  logwriter:
-    image:  eid-jenkins02.dmz.local:8081/logwriter:latest
-    extra_hosts:
-      - "eid-elk-app01.dmz.local:10.243.220.21"
-    configs:
-      - log_config
     networks:
       atest:
     dns: 8.8.8.8
