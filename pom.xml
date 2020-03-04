@@ -5,8 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.2.5.RELEASE</version>
     </parent>
     <groupId>no.idporten</groupId>
     <artifactId>minid-updater</artifactId>
@@ -22,15 +21,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <artifactory.url>http://eid-artifactory.dmz.local:8080/artifactory</artifactory.url>
         <generateBackupPoms>false</generateBackupPoms>
-        <eid.common.version>2019-06-27-1343-fe81e6d</eid.common.version>
-        <jackson.version>2.9.9</jackson.version>
+        <eid.common.version>2020-03-03-1349-e7fabdb</eid.common.version>
         <junit.version>4.12</junit.version>
         <mockito.version>2.24.0</mockito.version>
-        <slf4j.version>1.7.26</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <activemq.version>5.15.8</activemq.version>
         <logstash.logback.version>5.2</logstash.logback.version>
-        <resilience.version>2019-06-27-1212-079df00</resilience.version>
-        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+        <resilience.version>2020-02-21-1253-54b63fe</resilience.version>
     </properties>
 
     <repositories>
@@ -43,12 +40,7 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring.boot.version}</version>
-            <type>pom</type>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
@@ -122,24 +114,24 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
