@@ -25,7 +25,7 @@
         <junit.version>4.12</junit.version>
         <mockito.version>2.24.0</mockito.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <activemq.version>5.15.8</activemq.version>
+        <activemq.version>5.15.9</activemq.version>
         <logstash.logback.version>5.2</logstash.logback.version>
         <resilience.version>2020-02-21-1253-54b63fe</resilience.version>
     </properties>
