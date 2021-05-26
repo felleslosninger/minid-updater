@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <artifactory.url>http://eid-artifactory.dmz.local:8080/artifactory</artifactory.url>
         <generateBackupPoms>false</generateBackupPoms>
-        <eid.common.version>2021-05-26-0530-a5b501b</eid.common.version>
+        <eid.common.version>2021-05-26-1003-c328baf</eid.common.version>
         <junit.version>4.12</junit.version>
         <mockito.version>2.24.0</mockito.version>
         <slf4j.version>1.7.30</slf4j.version>
